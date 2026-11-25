@@ -1,0 +1,1857 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Connectly — Have an Idea? Find Your People.</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+:root {
+  --primary: #592fe0;
+  --primary-dark: #21194f;
+  --background: #f8f7fc;
+  --lavender: #eee8ff;
+  --border: #e6ddff;
+  --text: #19163e;
+  --muted: #716b99;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+button {
+  cursor: pointer;
+}
+
+button, input, textarea {
+  font-family: inherit;
+}
+
+.fade-in {
+  animation: fadeIn .3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MAIN LAYOUT */
+
+.app {
+  display: flex;
+  min-height: 100vh;
+  padding: 15px;
+  gap: 0;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 235px;
+  flex-shrink: 0;
+  background: linear-gradient(160deg, #261d59, #201849);
+  color: white;
+  padding: 25px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.brand-logo {
+  font-size: 43px;
+  color: #9b75ff;
+}
+
+.brand h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 5px 0;
+}
+
+.brand p {
+  font-size: 12px;
+  color: #e1d9ff;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-btn {
+  width: 100%;
+  padding: 13px 14px;
+  border: none;
+  border-radius: 14px;
+  background: transparent;
+  color: white;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.nav-btn:hover {
+  background: #ffffff20;
+}
+
+.nav-btn.active {
+  background: linear-gradient(100deg, #673de5, #4e2bc1);
+}
+
+.nav-icon {
+  font-size: 21px;
+  width: 25px;
+  text-align: center;
+}
+
+.notification-count {
+  margin-left: auto;
+  background: #ff4057;
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 25px;
+}
+
+.promo {
+  background: linear-gradient(130deg, #39267e, #5835bd);
+  border-radius: 17px;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.promo-icon {
+  font-size: 38px;
+}
+
+.promo p {
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+/* MAIN CONTENT */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  background: white;
+  padding: 24px;
+  border: 1px solid #e9e6f0;
+  box-shadow: 0 5px 20px #21194f0c;
+}
+
+/* TOPBAR */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 19px;
+}
+
+.search-box {
+  max-width: 510px;
+  flex: 1;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 18px 14px 45px;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  background: #f0ebff;
+  font-size: 14px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 10px;
+  font-size: 21px;
+}
+
+.top-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.notification-btn {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 25px;
+}
+
+.profile-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(130deg, #754cf0, #4825c8);
+  color: white;
+  border: none;
+  font-size: 21px;
+}
+
+/* HERO SECTION */
+
+.hero {
+  min-height: 285px;
+  border-radius: 22px;
+  background: linear-gradient(110deg, #eee7ff, #dfd2ff);
+  position: relative;
+  overflow: hidden;
+  padding: 38px 43px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.hero-content {
+  max-width: 520px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero h2 {
+  font-size: clamp(30px, 3vw, 43px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.hero-line {
+  width: 90px;
+  height: 4px;
+  border-radius: 5px;
+  background: var(--primary);
+  margin: 14px 0;
+}
+
+.hero p {
+  color: #282064;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.hero-art {
+  position: absolute;
+  right: 5%;
+  bottom: 10px;
+  font-size: clamp(90px, 12vw, 160px);
+}
+
+.hero-bulb {
+  position: absolute;
+  right: 28%;
+  top: 15px;
+  font-size: 53px;
+}
+
+.primary-btn {
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(100deg, #5929df, #7045ec);
+  color: white;
+  padding: 13px 22px;
+  font-size: 14px;
+  font-weight: 650;
+  transition: .2s;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 18px #5929df35;
+}
+
+/* DASHBOARD GRID */
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.55fr .85fr;
+  gap: 16px;
+  margin-bottom: 17px;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 5px 18px #44258d0b;
+  min-width: 0;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.panel-heading h3 {
+  font-size: 20px;
+  font-weight: 750;
+  margin: 0;
+}
+
+.view-btn {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+/* FEATURED IDEA */
+
+.idea-card {
+  border-top: 1px solid #eeeaff;
+  padding-top: 14px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.robot-image {
+  height: 165px;
+  border-radius: 15px;
+  background: radial-gradient(circle, #a78bfa, #292061);
+  display: grid;
+  place-items: center;
+  font-size: 90px;
+}
+
+.idea-title {
+  font-size: 19px;
+  font-weight: 750;
+  margin: 0 0 10px;
+}
+
+.status {
+  display: inline-block;
+  font-size: 12px;
+  color: #168747;
+  background: #e1f7e9;
+  padding: 6px 11px;
+  border-radius: 20px;
+  margin-left: 7px;
+}
+
+.idea-description {
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 12px 0;
+}
+
+.tag {
+  background: #eee8ff;
+  color: #5428df;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.idea-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.interested {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.small-btn {
+  margin-left: auto;
+  padding: 10px 16px;
+}
+
+/* AI CARD */
+
+.ai-panel {
+  background: linear-gradient(130deg, #ece3ff, #e3d7ff);
+  position: relative;
+  overflow: hidden;
+  min-height: 249px;
+}
+
+.ai-panel h3 {
+  font-size: 25px;
+  margin: 0 0 10px;
+}
+
+.ai-panel h4 {
+  margin: 0 0 12px;
+}
+
+.ai-panel p {
+  color: #453887;
+  line-height: 1.5;
+  max-width: 230px;
+}
+
+.robot-ai {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  font-size: 95px;
+}
+
+.outline-btn {
+  background: white;
+  border: 1px solid #754af0;
+  color: #4f2acb;
+  padding: 12px 19px;
+  border-radius: 30px;
+  font-weight: 650;
+  position: relative;
+  z-index: 2;
+}
+
+/* ACTIVITY & REQUESTS */
+
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 16px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.stat {
+  padding: 5px;
+  border-right: 1px solid #e0d5ff;
+}
+
+.stat:last-child {
+  border: none;
+}
+
+.stat-icon {
+  background: #eee8ff;
+  color: #6038df;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  margin: auto auto 5px;
+  font-size: 19px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 22px;
+}
+
+.stat span {
+  color: #625a99;
+  font-size: 13px;
+}
+
+.request {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.person-avatar {
+  width: 62px;
+  height: 62px;
+  background: #eee8ff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 37px;
+  flex-shrink: 0;
+}
+
+.request-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.request-info p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.request-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.accept-btn, .ignore-btn {
+  padding: 10px 17px;
+  border-radius: 25px;
+  font-weight: 650;
+}
+
+.accept-btn {
+  background: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+}
+
+.ignore-btn {
+  background: white;
+  color: var(--primary);
+  border: 1px solid #805cf0;
+}
+
+/* OTHER PAGES */
+
+.page-title {
+  font-size: 27px;
+  margin: 10px 0 20px;
+}
+
+.page-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  margin-bottom: 15px;
+  box-shadow: 0 5px 15px #44258d0b;
+}
+
+.page-card h3 {
+  margin-top: 0;
+}
+
+.page-card p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* MODALS */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: #17103988;
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  z-index: 50;
+}
+
+.modal {
+  background: white;
+  width: min(500px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 20px 70px #0003;
+  animation: fadeIn .25s ease;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal label {
+  display: block;
+  font-weight: 650;
+  margin: 13px 0 6px;
+}
+
+.modal input, .modal textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ded5f7;
+  border-radius: 11px;
+  outline-color: #754af0;
+}
+
+.modal textarea {
+  min-height: 95px;
+  resize: vertical;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.secondary-btn {
+  border: none;
+  background: #f0ebff;
+  color: #5428df;
+  padding: 11px 17px;
+  border-radius: 25px;
+}
+
+/* AI CHAT */
+
+.chat-box {
+  height: 280px;
+  overflow-y: auto;
+  background: #f8f5ff;
+  padding: 13px;
+  border-radius: 13px;
+  margin: 15px 0;
+}
+
+.message {
+  padding: 11px 13px;
+  border-radius: 13px;
+  margin: 8px 0;
+  max-width: 88%;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.bot-message {
+  background: #eae2ff;
+}
+
+.user-message {
+  background: #6038df;
+  color: white;
+  margin-left: auto;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #ded5f7;
+  border-radius: 25px;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: #21194f;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 12px;
+  z-index: 100;
+  box-shadow: 0 8px 25px #0002;
+}
+
+/* MOBILE */
+
+@media(max-width: 1050px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width: 720px) {
+  .app {
+    display: block;
+    padding: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .brand-logo {
+    font-size: 28px;
+  }
+
+  .brand h1 {
+    font-size: 21px;
+  }
+
+  .brand p, .sidebar-bottom {
+    display: none;
+  }
+
+  .navigation {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+
+  .nav-btn {
+    width: auto;
+    flex-shrink: 0;
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .main {
+    padding: 14px;
+  }
+
+  .hero {
+    padding: 28px 22px;
+    min-height: 270px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero h2 {
+    font-size: 31px;
+  }
+
+  .hero-art {
+    opacity: .18;
+  }
+
+  .idea-card {
+    grid-template-columns: 1fr;
+  }
+
+  .robot-image {
+    height: 135px;
+  }
+
+  .request {
+    flex-wrap: wrap;
+  }
+
+  .request-actions {
+    width: 100%;
+  }
+
+  .request-actions button {
+    flex: 1;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ===================================================== -->
+<!-- SIDEBAR NAVIGATION -->
+<!-- ===================================================== -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="brand-logo">∞</div>
+    <h1>Connectly</h1>
+    <p>Have an Idea? Find Your People.</p>
+  </div>
+
+  <nav class="navigation">
+
+    <button class="nav-btn active" data-page="Home">
+      <span class="nav-icon">⌂</span> Home
+    </button>
+
+    <button class="nav-btn" data-page="Explore Ideas">
+      <span class="nav-icon">⌕</span> Explore Ideas
+    </button>
+
+    <button class="nav-btn" data-action="post">
+      <span class="nav-icon">⊕</span> Post an Idea
+    </button>
+
+    <button class="nav-btn" data-page="My Projects">
+      <span class="nav-icon">▱</span> My Projects
+    </button>
+
+    <button class="nav-btn" data-page="Collaboration Requests">
+      <span class="nav-icon">♧</span> Collaboration Requests
+      <span class="notification-count" id="sideCount">2</span>
+    </button>
+
+    <button class="nav-btn" data-page="My Teams">
+      <span class="nav-icon">♧</span> My Teams
+    </button>
+
+    <button class="nav-btn" data-action="ai">
+      <span class="nav-icon">✣</span> Connectly AI
+    </button>
+
+    <button class="nav-btn" data-page="Profile">
+      <span class="nav-icon">♙</span> Profile
+    </button>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="promo">
+      <div class="promo-icon">🚀</div>
+      <p>Build Together.<br>Grow Together.</p>
+    </div>
+  </div>
+
+</aside>
+
+
+<!-- ===================================================== -->
+<!-- MAIN DASHBOARD -->
+<!-- ===================================================== -->
+
+<main class="main">
+
+  <!-- TOP NAVIGATION -->
+
+  <header class="topbar">
+
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search ideas, skills or people..."
+      >
+    </div>
+
+    <div class="top-actions">
+
+      <button class="notification-btn" id="notificationBtn">
+        ♧
+        <span class="notification-count" id="notificationCount">1</span>
+      </button>
+
+      <button class="profile-avatar" id="profileBtn">N</button>
+
+    </div>
+
+  </header>
+
+
+  <!-- HOME PAGE -->
+
+  <section id="homePage" class="fade-in">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <h2>
+          Turn Your Ideas<br>
+          Into Reality
+        </h2>
+
+        <div class="hero-line"></div>
+
+        <p>
+          Connect with like-minded people, find collaborators
+          and build something amazing together!
+        </p>
+
+        <button class="primary-btn" data-action="post">
+          🚀 Post Your Idea →
+        </button>
+
+      </div>
+
+      <div class="hero-bulb">💡</div>
+
+      <div class="hero-art">👩🏻‍💻👨🏻‍💻👩🏻‍💻</div>
+
+    </section>
+
+
+    <!-- FEATURED IDEAS AND AI -->
+
+    <div class="content-grid">
+
+      <!-- FEATURED IDEAS -->
+
+      <section class="panel">
+
+        <div class="panel-heading">
+          <span>⭐</span>
+          <h3>Featured Ideas</h3>
+          <button class="view-btn" data-page="Explore Ideas">
+            View All →
+          </button>
+        </div>
+
+        <div id="featuredIdeas">
+
+          <article class="idea-card">
+
+            <div class="robot-image">🤖</div>
+
+            <div>
+
+              <h3 class="idea-title">
+                Smart Robot Assistant
+                <span class="status">Open for Collaboration</span>
+              </h3>
+
+              <p class="idea-description">
+                A smart robot that can help with daily tasks,
+                speak and interact naturally.
+              </p>
+
+              <div class="tags">
+                <span class="tag">AI/ML</span>
+                <span class="tag">Python</span>
+                <span class="tag">Robotics</span>
+              </div>
+
+              <div class="idea-footer">
+
+                <span class="interested">
+                  👥 <span id="interestedCount">3</span> interested
+                </span>
+
+                <button class="primary-btn small-btn" data-action="details">
+                  View Details →
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONNECTLY AI -->
+
+      <section class="panel ai-panel">
+
+        <h3>Connectly AI ✨</h3>
+
+        <h4>Need help with your idea?</h4>
+
+        <p>
+          Get suggestions, skills and project guidance from AI.
+        </p>
+
+        <button class="outline-btn" data-action="ai">
+          💬 Ask Connectly AI →
+        </button>
+
+        <div class="robot-ai">🤖</div>
+
+      </section>
+
+    </div>
+
+
+    <!-- ACTIVITY AND REQUESTS -->
+
+    <div class="bottom-grid">
+
+      <!-- ACTIVITY -->
+
+      <section class="panel">
+
+        <div class="panel-heading">
+          <span>📊</span>
+          <h3>Your Activity</h3>
+          <button class="view-btn" data-page="My Projects">
+            View All →
+          </button>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-icon">💡</div>
+            <strong id="ideasCount">2</strong>
+            <span>Ideas Posted</span>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">👥</div>
+            <strong id="connectionsCount">5</strong>
+            <span>Connections</span>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">🏆</div>
+            <strong id="teamsCount">1</strong>
+            <span>Team Joined</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- COLLABORATION REQUESTS -->
+
+      <section class="panel" id="requestsPanel">
+
+        <div class="panel-heading">
+          <span>👥</span>
+          <h3>Collaboration Requests</h3>
+          <span class="notification-count" id="requestBadge">2</span>
+          <button class="view-btn" data-page="Collaboration Requests">
+            View All →
+          </button>
+        </div>
+
+        <div id="requestArjun" class="request">
+
+          <div class="person-avatar">👨🏻</div>
+
+          <div class="request-info">
+            <strong>Arjun Mehta</strong>
+            <p>
+              Wants to join your project<br>
+              <b>Smart Robot Assistant</b>
+            </p>
+          </div>
+
+          <div class="request-actions">
+
+            <button class="accept-btn" data-action="accept">
+              Accept
+            </button>
+
+            <button class="ignore-btn" data-action="ignore">
+              Ignore
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </section>
+
+
+  <!-- OTHER PAGES -->
+
+  <section id="otherPage" class="hidden fade-in">
+
+    <h2 class="page-title" id="otherTitle"></h2>
+
+    <div id="otherContent"></div>
+
+  </section>
+
+</main>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- MODAL CONTAINER -->
+<!-- ===================================================== -->
+
+<div id="modalRoot"></div>
+<div id="toastRoot"></div>
+
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT APPLICATION LOGIC -->
+<!-- ===================================================== -->
+
+<script>
+
+/* =====================================================
+   APPLICATION STATE
+===================================================== */
+
+const state = {
+  ideas: JSON.parse(localStorage.getItem("connectlyIdeas") || "[]"),
+  connections: Number(localStorage.getItem("connectlyConnections") || 5),
+  teams: Number(localStorage.getItem("connectlyTeams") || 1),
+  interested: 3,
+  requests: JSON.parse(localStorage.getItem("connectlyRequests") || "pending")
+};
+
+if (!Array.isArray(state.ideas)) state.ideas = [];
+if (!["pending", "accepted", "ignored"].includes(state.requests)) {
+  state.requests = "pending";
+}
+
+
+/* =====================================================
+   DOM ELEMENTS
+===================================================== */
+
+const homePage = document.getElementById("homePage");
+const otherPage = document.getElementById("otherPage");
+const otherTitle = document.getElementById("otherTitle");
+const otherContent = document.getElementById("otherContent");
+
+const modalRoot = document.getElementById("modalRoot");
+const toastRoot = document.getElementById("toastRoot");
+
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+
+function saveData() {
+
+  localStorage.setItem(
+    "connectlyIdeas",
+    JSON.stringify(state.ideas)
+  );
+
+  localStorage.setItem(
+    "connectlyConnections",
+    state.connections
+  );
+
+  localStorage.setItem(
+    "connectlyTeams",
+    state.teams
+  );
+
+  localStorage.setItem(
+    "connectlyRequests",
+    state.requests
+  );
+
+}
+
+
+/* =====================================================
+   TOAST NOTIFICATIONS
+===================================================== */
+
+function toast(message) {
+
+  toastRoot.innerHTML = "";
+
+  const element = document.createElement("div");
+  element.className = "toast";
+  element.textContent = message;
+
+  toastRoot.appendChild(element);
+
+  setTimeout(() => {
+    element.remove();
+  }, 2800);
+
+}
+
+
+/* =====================================================
+   DASHBOARD STATISTICS
+===================================================== */
+
+function updateStats() {
+
+  document.getElementById("ideasCount").textContent =
+    2 + state.ideas.length;
+
+  document.getElementById("connectionsCount").textContent =
+    state.connections;
+
+  document.getElementById("teamsCount").textContent =
+    state.teams;
+
+  const pending = state.requests === "pending";
+
+  document.getElementById("requestBadge").textContent =
+    pending ? "2" : "0";
+
+  document.getElementById("sideCount").style.display =
+    pending ? "grid" : "none";
+
+  document.getElementById("requestArjun").innerHTML =
+    pending ? `
+      <div class="person-avatar">👨🏻</div>
+      <div class="request-info">
+        <strong>Arjun Mehta</strong>
+        <p>Wants to join your project<br>
+        <b>Smart Robot Assistant</b></p>
+      </div>
+      <div class="request-actions">
+        <button class="accept-btn" data-action="accept">Accept</button>
+        <button class="ignore-btn" data-action="ignore">Ignore</button>
+      </div>
+    ` : `
+      <div class="request-info">
+        <p>✨ This request has been handled.</p>
+      </div>
+    `;
+
+  saveData();
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showPage(page) {
+
+  document.querySelectorAll(".nav-btn[data-page]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
+
+  homePage.classList.toggle("hidden", page !== "Home");
+  otherPage.classList.toggle("hidden", page === "Home");
+
+  if (page === "Home") return;
+
+  otherTitle.textContent = page;
+
+  const pages = {
+
+    "Explore Ideas": `
+      <div id="exploreList"></div>
+    `,
+
+    "My Projects": `
+      <div class="page-card">
+        <h3>🚀 My Projects</h3>
+        <p>Your published ideas and projects are displayed here.</p>
+        <button class="primary-btn" data-action="post">
+          + Create New Idea
+        </button>
+      </div>
+      <div id="myProjectList"></div>
+    `,
+
+    "Collaboration Requests": `
+      <div class="page-card">
+        <h3>👥 Incoming Requests</h3>
+        <div id="requestPageContent"></div>
+      </div>
+    `,
+
+    "My Teams": `
+      <div class="page-card">
+        <h3>🏆 Innovation Builders</h3>
+        <p>Working together to turn creative ideas into real projects.</p>
+        <span class="tag">Active Team</span>
+      </div>
+    `,
+
+    "Profile": `
+      <div class="page-card">
+        <h3>👤 Welcome, Nandini!</h3>
+        <p>Student · Idea Creator · Future Innovator</p>
+        <p>Ideas Posted: ${2 + state.ideas.length}</p>
+        <p>Connections: ${state.connections}</p>
+        <button class="primary-btn" data-action="editProfile">
+          Edit Profile
+        </button>
+      </div>
+    `
+
+  };
+
+  otherContent.innerHTML = pages[page] || "";
+
+  if (page === "Explore Ideas") renderExplore();
+  if (page === "My Projects") renderProjects();
+  if (page === "Collaboration Requests") renderRequests();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+}
+
+
+/* =====================================================
+   RENDER USER IDEAS
+===================================================== */
+
+function createIdeaCard(idea) {
+
+  const card = document.createElement("div");
+  card.className = "page-card fade-in";
+
+  const title = document.createElement("h3");
+  title.textContent = "💡 " + idea.title;
+
+  const description = document.createElement("p");
+  description.textContent = idea.description;
+
+  const skills = document.createElement("div");
+  skills.className = "tags";
+
+  idea.skills.split(",").filter(Boolean).forEach(skill => {
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = skill.trim();
+    skills.appendChild(tag);
+  });
+
+  const status = document.createElement("p");
+  status.textContent = "🟢 Open for Collaboration";
+
+  card.append(title, description, skills, status);
+
+  return card;
+
+}
+
+function renderExplore() {
+
+  const list = document.getElementById("exploreList");
+  if (!list) return;
+
+  list.innerHTML = `
+    <div class="page-card">
+      <h3>🤖 Smart Robot Assistant</h3>
+      <p>A smart robot that can help with daily tasks, speak and interact naturally.</p>
+      <div class="tags">
+        <span class="tag">AI/ML</span>
+        <span class="tag">Python</span>
+        <span class="tag">Robotics</span>
+      </div>
+      <button class="primary-btn" data-action="details">
+        View Details
+      </button>
+    </div>
+  `;
+
+  state.ideas.forEach(idea => list.appendChild(createIdeaCard(idea)));
+
+}
+
+function renderProjects() {
+
+  const list = document.getElementById("myProjectList");
+  if (!list) return;
+
+  state.ideas.forEach(idea => list.appendChild(createIdeaCard(idea)));
+
+}
+
+function renderRequests() {
+
+  const area = document.getElementById("requestPageContent");
+  if (!area) return;
+
+  if (state.requests === "pending") {
+    area.innerHTML = `
+      <p>👨🏻 <b>Arjun Mehta</b> wants to join Smart Robot Assistant.</p>
+      <button class="accept-btn" data-action="accept">Accept</button>
+      <button class="ignore-btn" data-action="ignore">Ignore</button>
+    `;
+  } else {
+    area.textContent = "✨ You are all caught up! No pending requests.";
+  }
+
+}
+
+
+/* =====================================================
+   POST IDEA MODAL
+===================================================== */
+
+function postIdea() {
+
+  openModal("🚀 Post Your Idea", `
+
+    <form id="ideaForm">
+
+      <label for="ideaTitle">Idea Title *</label>
+
+      <input
+        id="ideaTitle"
+        required
+        maxlength="100"
+        placeholder="Enter your project name"
+      >
+
+      <label for="ideaDescription">Description *</label>
+
+      <textarea
+        id="ideaDescription"
+        required
+        placeholder="Describe your project idea..."
+      ></textarea>
+
+      <label for="ideaSkills">Skills Required</label>
+
+      <input
+        id="ideaSkills"
+        placeholder="Python, AI/ML, Web Development"
+      >
+
+      <div class="modal-actions">
+
+        <button type="button" class="secondary-btn" id="cancelPost">
+          Cancel
+        </button>
+
+        <button type="submit" class="primary-btn">
+          Publish Idea
+        </button>
+
+      </div>
+
+    </form>
+
+  `);
+
+  document.getElementById("cancelPost").onclick = closeModal;
+
+  document.getElementById("ideaForm").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    const title = document.getElementById("ideaTitle").value.trim();
+    const description = document.getElementById("ideaDescription").value.trim();
+    const skills = document.getElementById("ideaSkills").value.trim();
+
+    if (!title || !description) return;
+
+    state.ideas.unshift({
+      title,
+      description,
+      skills: skills || "Open to suggestions"
+    });
+
+    saveData();
+    updateStats();
+    closeModal();
+
+    toast("🎉 Your idea has been published!");
+
+    showPage("My Projects");
+
+  };
+
+}
+
+
+/* =====================================================
+   IDEA DETAILS
+===================================================== */
+
+function showDetails() {
+
+  openModal("🤖 Smart Robot Assistant", `
+
+    <p>A smart robot that can help with daily tasks,
+    speak and interact naturally.</p>
+
+    <div class="tags">
+      <span class="tag">AI/ML</span>
+      <span class="tag">Python</span>
+      <span class="tag">Robotics</span>
+    </div>
+
+    <p><b>Looking for:</b> Python Developer, AI Enthusiast
+    and Robotics Enthusiast.</p>
+
+    <p>🟢 Open for Collaboration</p>
+
+    <div class="modal-actions">
+      <button class="secondary-btn" id="closeDetails">Close</button>
+      <button class="primary-btn" id="interestBtn">
+        I'm Interested
+      </button>
+    </div>
+
+  `);
+
+  document.getElementById("closeDetails").onclick = closeModal;
+
+  document.getElementById("interestBtn").onclick = () => {
+
+    state.interested++;
+
+    document.getElementById("interestedCount").textContent =
+      state.interested;
+
+    closeModal();
+
+    toast("Your interest has been added!");
+
+  };
+
+}
+
+
+/* =====================================================
+   CONNECTLY AI DEMO ASSISTANT
+===================================================== */
+
+function aiModal() {
+
+  openModal("Connectly AI ✨", `
+
+    <p style="color:#716b99">
+      Your friendly project brainstorming assistant.
+    </p>
+
+    <div class="chat-box" id="chatBox">
+
+      <div class="message bot-message">
+        Hi! 👋 Welcome to Connectly AI.
+
+        Tell me your idea and I can suggest project
+        features, skills and development steps!
+      </div>
+
+    </div>
+
+    <div class="chat-input">
+
+      <input
+        id="chatInput"
+        placeholder="Ask Connectly AI..."
+      >
+
+      <button class="primary-btn" id="sendBtn">
+        Send
+      </button>
+
+    </div>
+
+  `);
+
+  const send = () => {
+
+    const input = document.getElementById("chatInput");
+    const value = input.value.trim();
+
+    if (!value) return;
+
+    const chat = document.getElementById("chatBox");
+
+    const user = document.createElement("div");
+    user.className = "message user-message";
+    user.textContent = value;
+
+    chat.appendChild(user);
+
+    input.value = "";
+
+    const typing = document.createElement("div");
+    typing.className = "message bot-message";
+    typing.textContent = "Thinking...";
+
+    chat.appendChild(typing);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(() => {
+
+      typing.textContent = getAIResponse(value);
+
+      chat.scrollTop = chat.scrollHeight;
+
+    }, 600);
+
+  };
+
+  document.getElementById("sendBtn").onclick = send;
+
+  document.getElementById("chatInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") send();
+  });
+
+}
+
+
+/* =====================================================
+   AI RESPONSE ENGINE — FRONTEND DEMO
+===================================================== */
+
+function getAIResponse(message) {
+
+  const text = message.toLowerCase();
+
+  if (text.includes("idea")) {
+    return "Start by identifying a real-world problem. Then define your target users, main features, technology stack and a small first version (MVP).";
+  }
+
+  if (text.includes("skill")) {
+    return "Useful skills include HTML, CSS, JavaScript, Python, database management, Git and problem-solving. Choose skills based on your project requirements.";
+  }
+
+  if (text.includes("team")) {
+    return "A balanced project team can include a frontend developer, backend developer, UI/UX designer and project coordinator.";
+  }
+
+  if (text.includes("robot")) {
+    return "For a Smart Robot Assistant, consider Python, machine learning, speech recognition, sensors and robotics. Start with a simple voice-controlled prototype.";
+  }
+
+  if (text.includes("website")) {
+    return "For a website, start with HTML for structure, CSS for styling, JavaScript for interactions, and later connect a backend and database.";
+  }
+
+  if (text.includes("startup")) {
+    return "To start a startup, identify a problem, research your audience, validate your solution, build an MVP and collect feedback from early users.";
+  }
+
+  if (text.includes("project")) {
+    return "Break your project into smaller tasks. Decide the features, choose the technology stack, assign team responsibilities and build a prototype first.";
+  }
+
+  return "That's an interesting thought! 💡 Define the problem you're solving, identify the users who need it, and start with one useful feature. I can help you plan the next steps.";
+
+}
+
+
+/* =====================================================
+   GENERIC MODAL
+===================================================== */
+
+function openModal(title, content) {
+
+  modalRoot.innerHTML = `
+
+    <div class="modal-backdrop" id="modalBackdrop">
+
+      <div class="modal">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+
+          <h2>${title}</h2>
+
+          <button id="closeModal" class="view-btn">
+            ✕
+          </button>
+
+        </div>
+
+        ${content}
+
+      </div>
+
+    </div>
+
+  `;
+
+  document.getElementById("closeModal").onclick = closeModal;
+
+  document.getElementById("modalBackdrop").addEventListener("click", e => {
+    if (e.target.id === "modalBackdrop") closeModal();
+  });
+
+}
+
+function closeModal() {
+  modalRoot.innerHTML = "";
+}
+
+
+/* =====================================================
+   COLLABORATION REQUEST ACTIONS
+===================================================== */
+
+function handleRequest(accept) {
+
+  if (state.requests !== "pending") return;
+
+  state.requests = accept ? "accepted" : "ignored";
+
+  if (accept) {
+    state.connections++;
+    toast("🎉 Collaboration request accepted!");
+  } else {
+    toast("Collaboration request ignored.");
+  }
+
+  updateStats();
+
+  if (
+    !otherPage.classList.contains("hidden") &&
+    otherTitle.textContent === "Collaboration Requests"
+  ) {
+    showPage("Collaboration Requests");
+  }
+
+}
+
+
+/* =====================================================
+   EVENT DELEGATION
+===================================================== */
+
+document.addEventListener("click", e => {
+
+  const pageButton = e.target.closest("[data-page]");
+
+  if (pageButton) {
+    showPage(pageButton.dataset.page);
+    return;
+  }
+
+  const actionButton = e.target.closest("[data-action]");
+
+  if (!actionButton) return;
+
+  const action = actionButton.dataset.action;
+
+  if (action === "post") postIdea();
+
+  if (action === "ai") aiModal();
+
+  if (action === "details") showDetails();
+
+  if (action === "accept") handleRequest(true);
+
+  if (action === "ignore") handleRequest(false);
+
+  if (action === "editProfile") {
+    toast("Profile editing will be available in the next version!");
+  }
+
+});
+
+
+/* =====================================================
+   SEARCH FUNCTIONALITY
+===================================================== */
+
+document.getElementById("searchInput").addEventListener("keydown", e => {
+
+  if (e.key !== "Enter") return;
+
+  const query = e.target.value.trim();
+
+  if (!query) return;
+
+  showPage("Explore Ideas");
+
+  const cards = document.querySelectorAll("#exploreList .page-card");
+
+  let found = false;
+
+  cards.forEach(card => {
+
+    const match = card.textContent.toLowerCase().includes(query.toLowerCase());
+
+    card.style.display = match ? "" : "none";
+
+    if (match) found = true;
+
+  });
+
+  if (!found) {
+    toast("No matching ideas found.");
+  }
+
+});
+
+
+/* =====================================================
+   PROFILE AND NOTIFICATIONS
+===================================================== */
+
+document.getElementById("profileBtn").onclick = () => {
+  showPage("Profile");
+};
+
+document.getElementById("notificationBtn").onclick = () => {
+
+  if (state.requests === "pending") {
+    showPage("Collaboration Requests");
+    toast("You have a collaboration request!");
+  } else {
+    toast("You're all caught up!");
+  }
+
+};
+
+
+/* =====================================================
+   INITIAL APPLICATION LOAD
+===================================================== */
+
+function initializeApp() {
+
+  updateStats();
+
+  renderExplore();
+
+  console.log("Connectly Dashboard Loaded Successfully!");
+
+}
+
+initializeApp();
+
+</script>
+
+</body>
+</html>
